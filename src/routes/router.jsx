@@ -12,3 +12,5 @@ function AppRouter() {
  );
 }
 export default AppRouter;
+
+<><Link to="/login">Volver al inicio de sesión</Link><Link to="/register">Crear cuenta</Link><Link to="/reset-password">¿Olvidaste tu contraseña?</Link></>
