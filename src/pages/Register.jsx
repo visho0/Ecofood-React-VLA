@@ -10,6 +10,7 @@ export default function Register() {
   const [password, setPassword] = useState("");
   const [nombre, setNombre] = useState("");
   const [tipo, setTipo] = useState("cliente");
+  const [phone, setPhone] = useState(""); // Nuevo estado para el teléfono
 
   const navigate = useNavigate();
 
@@ -17,11 +18,12 @@ export default function Register() {
     e.preventDefault();
     try {
       const cred = await createUserWithEmailAndPassword(auth, email, password);
-      await saveUserData(cred.user.uid, { nombre, tipo, email });
+      await saveUserData(cred.user.uid, { nombre, tipo, email, phone });
       Swal.fire("Registrado", "Usuario creado correctamente", "success");
       navigate("/login");
     } catch (error) {
       Swal.fire("Error", "No se pudo registrar", "error");
+      // Opcional: console.error(error); para depuración
     }
   };
 
@@ -59,6 +61,21 @@ export default function Register() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+          />
+        </div>
+
+        {/* Nuevo campo de teléfono */}
+        <div className="mb-3">
+          <label className="form-label">Teléfono</label>
+          <input
+            type="tel"
+            className="form-control"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            pattern="[0-9]{10,15}"
+            minLength={10}
+            maxLength={15}
+            placeholder="Ej. 3001234567"
           />
         </div>
 
