@@ -1,5 +1,5 @@
 import { useAuth } from "../../../context/AuthContext";
-import CerrarSesion from "../../CerrarSesion"; // Asegúrate de que esta ruta sea correcta
+import CerrarSesion from "../../CerrarSesion"; 
 
 export default function NavAdmin() {
   const { userData } = useAuth();
@@ -7,7 +7,6 @@ export default function NavAdmin() {
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
       <div className="container-fluid">
-        {/* Corrección: Uso de template literals y operador ternario para mostrar el nombre */}
         <a className="navbar-brand" href="#">Ecofood {userData ? `(${userData.nombre})` : ''}</a>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
@@ -22,6 +21,9 @@ export default function NavAdmin() {
             </li>
              <li className="nav-item">
                 <a className="nav-link" href="/admin/usuarios">Usuarios</a>
+            </li>
+            <li className="nav-item">
+                <a className="nav-link" href="/admin/clientes">Clientes</a>
             </li>
           </ul>
           <span className="navbar-text">

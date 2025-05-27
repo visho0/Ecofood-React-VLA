@@ -10,7 +10,7 @@ export default function Register() {
   const [password, setPassword] = useState("");
   const [nombre, setNombre] = useState("");
   const [tipo, setTipo] = useState("cliente");
-  const [phone, setPhone] = useState(""); // Nuevo estado para el teléfono
+  const [phone, setPhone] = useState("");
 
   const navigate = useNavigate();
 
@@ -64,7 +64,6 @@ export default function Register() {
           />
         </div>
 
-        {/* Nuevo campo de teléfono */}
         <div className="mb-3">
           <label className="form-label">Teléfono</label>
           <input
