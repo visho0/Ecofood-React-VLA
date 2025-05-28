@@ -1,3 +1,3 @@
-export default function AdminUsuarios() { [cite, 29]
-  return <h2>Panel de usuarios</h2>; [cite, 29]
+export default function AdminUsuarios() {
+  return <h2>Panel de usuarios</h2>;
 }
