@@ -1,5 +1,5 @@
 import { useAuth } from "../../../context/AuthContext";
-import CerrarSesion from "../../CerrarSesion"; 
+import CerrarSesion from "../../CerrarSesion";
 
 export default function NavAdmin() {
   const { userData } = useAuth();
@@ -19,11 +19,14 @@ export default function NavAdmin() {
             <li className="nav-item">
                 <a className="nav-link" href="/admin/productos">Productos</a>
             </li>
-             <li className="nav-item">
-                <a className="nav-link" href="/admin/usuarios">Usuarios</a>
-            </li>
             <li className="nav-item">
                 <a className="nav-link" href="/admin/clientes">Clientes</a>
+            </li>
+            <li className="nav-item"> 
+                <a className="nav-link" href="/admin/empresas">Empresas</a>
+            </li>
+            <li className="nav-item"> 
+                <a className="nav-link" href="/admin/administradores">Administradores</a>
             </li>
           </ul>
           <span className="navbar-text">

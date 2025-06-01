@@ -1,20 +1,22 @@
+// src/pages/admin/AdminClientes.jsx (Confirmado con la versión de la Guía 7)
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import {
   getClientes,
-  updateCliente,
+  updateCliente, // Mantener para edición de datos de Firestore
   deleteCliente,
-  registrarClienteConAuth
+  registrarClienteConAuth // Para añadir nuevos clientes (con cuenta de auth)
 } from "../../services/clienteFirebase";
 
 export default function AdminClientes() {
   const [clientes, setClientes] = useState([]);
   const [clienteActivo, setClienteActivo] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  // Añade password para el formulario, solo se usará para registrar
   const [formData, setFormData] = useState({ nombre: "", email: "", comuna: "", password: "" });
 
   const cargarClientes = async () => {
-    const data = await getClientes();
+    const data = await getClientes(); // getClientes ya filtra por tipo: "cliente"
     setClientes(data);
   };
 
@@ -22,19 +24,21 @@ export default function AdminClientes() {
     e.preventDefault();
     try {
       if (clienteActivo) {
+        // Si es una edición, solo actualiza los datos de Firestore
         await updateCliente(clienteActivo.id, {
           nombre: formData.nombre,
-          email: formData.email,
+          email: formData.email, // Podría ser complejo cambiar el email de Auth. Asumimos que no se cambia aquí.
           comuna: formData.comuna
         });
         Swal.fire("Cliente Actualizado", "", "success");
       } else {
+        // Si es un nuevo cliente, usa registrarClienteConAuth para crear la cuenta y los datos
         await registrarClienteConAuth(formData);
-        Swal.fire("Cliente Registrado", "Se envió un correo de verificación.", "success");
+        Swal.fire("Cliente Registrado", "Se envió un correo de verificación al cliente.", "success");
       }
       setShowModal(false);
       setClienteActivo(null);
-      setFormData({ nombre: "", email: "", comuna: "", password: "" });
+      setFormData({ nombre: "", email: "", comuna: "", password: "" }); // Resetear formulario
       cargarClientes();
     } catch (error) {
       Swal.fire("Error", "No se pudo guardar el cliente. " + error.message, "error");
@@ -44,6 +48,7 @@ export default function AdminClientes() {
   const eliminar = async (id) => {
     const result = await Swal.fire({
       title: "¿Eliminar cliente?",
+      text: "¡No podrás revertir esto!",
       icon: "warning",
       showCancelButton: true,
       confirmButtonText: "Sí, eliminar",
