@@ -1,4 +1,3 @@
-// src/services/adminService.js
 import { db, auth, secondaryAuth } from "./firebase";
 import {
   collection, query, where, getDocs, addDoc,
@@ -47,7 +46,7 @@ export const getAdminPrincipal = async () => {
         const principalDoc = snapshot.docs[0];
         return { id: principalDoc.id, ...principalDoc.data() };
     }
-    return null; // No se encontró un administrador principal
+    return null; 
 };
 
 // Añadir un nuevo administrador con autenticación
@@ -60,7 +59,7 @@ export const addAdminConAuth = async (datos) => {
       nombre: datos.nombre || "",
       tipo: "admin",
       email: datos.email || "",
-      isPrincipal: false // Por defecto, un nuevo admin NO es principal
+      isPrincipal: false 
     });
 
     await secondaryAuth.signOut();

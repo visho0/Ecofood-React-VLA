@@ -1,4 +1,3 @@
-// src/pages/admin/AdminAdministradores.jsx (Ya debería estar actualizado, solo confirmación)
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { useAuth } from "../../../context/AuthContext";
@@ -15,7 +14,7 @@ export default function AdminAdministradores() {
   const [adminActivo, setAdminActivo] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [formData, setFormData] = useState({ nombre: "", email: "", password: "" });
-  const { user } = useAuth(); // Obtener el usuario logueado
+  const { user } = useAuth(); 
 
   const cargarAdministradores = async () => {
     const data = await getAdministradores();
@@ -28,7 +27,7 @@ export default function AdminAdministradores() {
       if (adminActivo) {
         await updateAdminData(adminActivo.id, {
           nombre: formData.nombre,
-          // No se actualizan email/password desde aquí para usuarios existentes
+          
         });
         Swal.fire("Administrador Actualizado", "", "success");
       } else {
