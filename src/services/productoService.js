@@ -1,10 +1,16 @@
 import { db } from "./firebase";
-import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc } from "firebase/firestore";
+import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc, query, where } from "firebase/firestore";
 
 const productosCollection = collection(db, "productos");
 
 export const getProductos = async () => {
   const snapshot = await getDocs(productosCollection);
+  return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+};
+
+export const getProductosByEmpresaId = async (empresaId) => {
+  const q = query(productosCollection, where("empresaId", "==", empresaId));
+  const snapshot = await getDocs(q);
   return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 };
 

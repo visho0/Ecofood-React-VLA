@@ -79,3 +79,4 @@ export const deleteAdmin = async (id) => {
   const ref = doc(db, "usuarios", id);
   return await deleteDoc(ref);
 };
+

@@ -16,7 +16,6 @@ export default function Login() {
       await setPersistence(auth, browserLocalPersistence);
       const cred = await signInWithEmailAndPassword(auth, email, password);
 
-      // Agrega la verificación de correo electrónico
       if (!cred.user.emailVerified) {
         Swal.fire("Verificación requerida", "Debes verificar tu correo antes de ingresar.", "warning");
         return;
@@ -24,12 +23,27 @@ export default function Login() {
 
       const datos = await getUserData(cred.user.uid);
 
-      if (datos.tipo === "admin") navigate("/admin/dashboard");
-      else if (datos.tipo === "cliente") navigate("/cliente/dashboard");
+      
+      if (datos && datos.tipo) { 
+          if (datos.tipo === "admin") {
+            navigate("/admin/dashboard");
+          } else if (datos.tipo === "cliente") {
+            navigate("/cliente/dashboard");
+          } else if (datos.tipo === "empresa") {
+            navigate("/empresa/perfil");
+          } else {
+            
+            Swal.fire("Error", "Tipo de usuario no reconocido. Contacta al soporte.", "error");
+          
+          }
+      } else {
+          Swal.fire("Error", "No se pudieron cargar los datos del usuario. Asegúrate de que tu cuenta esté configurada correctamente.", "error");
+          
+      }
 
-      // eslint-disable-next-line no-unused-vars
     } catch (error) {
-      Swal.fire("Error", "Credenciales incorrectas", "error");
+      console.error("Error en handleLogin:", error); 
+      Swal.fire("Error", "Credenciales incorrectas o problema al iniciar sesión. " + error.message, "error");
     }
   };
 

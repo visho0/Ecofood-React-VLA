@@ -1,7 +1,7 @@
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { db } from "./firebase";  
 
-// Obtener datos del usuario
+
 export const getUserData = async (uid) => {
   try {
     const ref = doc(db, "usuarios", uid);
@@ -17,10 +17,10 @@ export const getUserData = async (uid) => {
   }
 };
 
-// Guardar datos del usuario
+
 export const saveUserData = async (uid, data) => {
   try {
-    await setDoc(doc(db, "usuarios", uid), data);
+    await setDoc(doc(db, "usuarios", uid), data, { merge: true }); 
   } catch (error) {
     console.error("Error al guardar datos:", error);
     throw error;
