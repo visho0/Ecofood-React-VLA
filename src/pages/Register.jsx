@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
 import { auth } from "../services/firebase";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
@@ -19,6 +19,8 @@ export default function Register() {
     try {
       const cred = await createUserWithEmailAndPassword(auth, email, password);
       await saveUserData(cred.user.uid, { nombre, tipo, email, phone });
+      await sendEmailVerification(cred.user); 
+
       Swal.fire("Registrado", "Usuario creado correctamente", "success");
       navigate("/login");
     } catch (error) {

@@ -1,4 +1,4 @@
-import { useState } from 'react'Add commentMore actions
+import { UseState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -32,7 +32,7 @@ function App() {
   )
 }
 
-export default App
+
 
 function App() {
  return <h1>Bienvenido a EcoFood</h1>;
