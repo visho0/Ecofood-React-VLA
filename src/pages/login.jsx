@@ -21,6 +21,8 @@ export default function Login() {
         return;
       }
 
+      console.log(cred, cred.user.uid);
+
       const datos = await getUserData(cred.user.uid);
 
       

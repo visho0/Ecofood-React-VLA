@@ -17,3 +17,4 @@ export const db = getFirestore(app);
 
 const secondaryApp = initializeApp(firebaseConfig, "Secondary");
 export const secondaryAuth = getAuth(secondaryApp);
+

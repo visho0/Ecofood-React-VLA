@@ -18,7 +18,11 @@ export default function Register() {
     e.preventDefault();
     try {
       const cred = await createUserWithEmailAndPassword(auth, email, password);
+
+      console.log("Usuario creado:", cred.user.uid, { nombre, tipo, email, phone } );
       await saveUserData(cred.user.uid, { nombre, tipo, email, phone });
+
+      
       await sendEmailVerification(cred.user); 
 
       Swal.fire("Registrado", "Usuario creado correctamente", "success");
