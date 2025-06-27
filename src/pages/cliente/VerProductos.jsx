@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getProductosDisponibles, crearSolicitud } from '../../services/pedidoService';
-import ProductoCard from '../../components/ProductoCard';
+import CardProducto from '../../components/ProductoCard';
 import Swal from 'sweetalert2';
 
 const VerProductos = () => {
@@ -40,7 +40,7 @@ const VerProductos = () => {
       <h3>Productos Disponibles</h3>
       <div className="row">
         {productos.map((p) => (
-          <ProductoCard key={p.id} producto={p} onSolicitar={handleSolicitar} />
+          <CardProducto key={p.id} producto={p} onSolicitar={handleSolicitar} />
         ))}
       </div>
     </div>

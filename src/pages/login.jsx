@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword, setPersistence, browserLocalPersistence } from "firebase/auth";
 import { auth } from "../services/firebase";
 import Swal from "sweetalert2";
@@ -25,8 +25,7 @@ export default function Login() {
 
       const datos = await getUserData(cred.user.uid);
 
-      
-      if (datos && datos.tipo) { 
+      if (datos && datos.tipo) {
           if (datos.tipo === "admin") {
             navigate("/admin/dashboard");
           } else if (datos.tipo === "cliente") {
@@ -34,17 +33,14 @@ export default function Login() {
           } else if (datos.tipo === "empresa") {
             navigate("/empresa/perfil");
           } else {
-            
             Swal.fire("Error", "Tipo de usuario no reconocido. Contacta al soporte.", "error");
-          
           }
       } else {
           Swal.fire("Error", "No se pudieron cargar los datos del usuario. Asegúrate de que tu cuenta esté configurada correctamente.", "error");
-          
       }
 
     } catch (error) {
-      console.error("Error en handleLogin:", error); 
+      console.error("Error en handleLogin:", error);
       Swal.fire("Error", "Credenciales incorrectas o problema al iniciar sesión. " + error.message, "error");
     }
   };
@@ -73,7 +69,8 @@ export default function Login() {
             required
           />
         </div>
-        <button type="submit" className="btn btn-primary">Iniciar Sesión</button>
+        <button type="submit" className="btn btn-primary me-2">Iniciar Sesión</button>
+        <Link to="/registro" className="btn btn-secondary">Registrarse</Link>
       </form>
     </div>
   );

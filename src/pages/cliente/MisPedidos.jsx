@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getSolicitudesPorCliente } from '../../services/pedidoService';
-import PedidoCard from '../../components/PedidoCard';
+import ProductoCard from '../../components/ProductoCard';
 
 const MisPedidos = () => {
   const [solicitudes, setSolicitudes] = useState([]);
@@ -15,7 +15,7 @@ const MisPedidos = () => {
       {solicitudes.length === 0 ? (
         <p>No tienes solicitudes realizadas.</p>
       ) : (
-        solicitudes.map((s) => <PedidoCard key={s.id} pedido={s} />)
+        solicitudes.map((s) => <ProductoCard key={s.id} pedido={s} />)
       )}
     </div>
   );
