@@ -6,15 +6,55 @@ export default function AdminEmpresas() {
   const [empresas, setEmpresas] = useState([]);
   const [empresaActiva, setEmpresaActiva] = useState(null);
   const [showModal, setShowModal] = useState(false);
-  const [formData, setFormData] = useState({ nombre: "", rut: "", direccion: "", comuna: "", email: "", telefono: "" });
+  const [formData, setFormData] = useState({ 
+    nombre: "", 
+    rut: "", 
+    direccion: "", 
+    comuna: "", 
+    email: "", 
+    telefono: "" 
+  });
+
+  // Límites de caracteres para cada campo
+  const LIMITES = {
+    nombre: 30,
+    rut: 12,
+    direccion: 50,
+    comuna: 30,
+    email: 30,
+    telefono: 12
+  };
 
   const cargarEmpresas = async () => {
     const data = await getEmpresas();
     setEmpresas(data);
   };
 
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    // Validar longitud máxima
+    if (value.length <= LIMITES[name]) {
+      setFormData({
+        ...formData,
+        [name]: value
+      });
+    }
+  };
+
   const guardarEmpresa = async (e) => {
     e.preventDefault();
+    
+    // Validaciones adicionales antes de guardar
+    if (formData.nombre.trim() === "") {
+      Swal.fire("Error", "El nombre es obligatorio", "error");
+      return;
+    }
+    
+    if (formData.rut.trim() === "") {
+      Swal.fire("Error", "El RUT es obligatorio", "error");
+      return;
+    }
+
     try {
       if (empresaActiva) {
         await updateEmpresa(empresaActiva.id, formData);
@@ -102,12 +142,71 @@ export default function AdminEmpresas() {
                 <button type="button" className="btn-close" onClick={() => setShowModal(false)}></button>
               </div>
               <div className="modal-body">
-                <input className="form-control mb-2" placeholder="Nombre" value={formData.nombre} onChange={(e) => setFormData({ ...formData, nombre: e.target.value })} />
-                <input className="form-control mb-2" placeholder="RUT" value={formData.rut} onChange={(e) => setFormData({ ...formData, rut: e.target.value })} />
-                <input className="form-control mb-2" placeholder="Dirección" value={formData.direccion} onChange={(e) => setFormData({ ...formData, direccion: e.target.value })} />
-                <input className="form-control mb-2" placeholder="Comuna" value={formData.comuna} onChange={(e) => setFormData({ ...formData, comuna: e.target.value })} />
-                <input className="form-control mb-2" placeholder="Email" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} />
-                <input className="form-control mb-2" placeholder="Teléfono" value={formData.telefono} onChange={(e) => setFormData({ ...formData, telefono: e.target.value })} />
+                <div className="mb-2">
+                  <input 
+                    className="form-control" 
+                    name="nombre"
+                    placeholder="Nombre (máx. 30 caracteres)" 
+                    value={formData.nombre} 
+                    onChange={handleInputChange} 
+                  />
+                  <small className="text-muted">{formData.nombre.length}/{LIMITES.nombre} caracteres</small>
+                </div>
+                
+                <div className="mb-2">
+                  <input 
+                    className="form-control" 
+                    name="rut"
+                    placeholder="RUT (máx. 12 caracteres)" 
+                    value={formData.rut} 
+                    onChange={handleInputChange} 
+                  />
+                  <small className="text-muted">{formData.rut.length}/{LIMITES.rut} caracteres</small>
+                </div>
+                
+                <div className="mb-2">
+                  <input 
+                    className="form-control" 
+                    name="direccion"
+                    placeholder="Dirección (máx. 50 caracteres)" 
+                    value={formData.direccion} 
+                    onChange={handleInputChange} 
+                  />
+                  <small className="text-muted">{formData.direccion.length}/{LIMITES.direccion} caracteres</small>
+                </div>
+                
+                <div className="mb-2">
+                  <input 
+                    className="form-control" 
+                    name="comuna"
+                    placeholder="Comuna (máx. 30 caracteres)" 
+                    value={formData.comuna} 
+                    onChange={handleInputChange} 
+                  />
+                  <small className="text-muted">{formData.comuna.length}/{LIMITES.comuna} caracteres</small>
+                </div>
+                
+                <div className="mb-2">
+                  <input 
+                    className="form-control" 
+                    name="email"
+                    placeholder="Email (máx. 30 caracteres)" 
+                    value={formData.email} 
+                    onChange={handleInputChange} 
+                  />
+                  <small className="text-muted">{formData.email.length}/{LIMITES.email} caracteres</small>
+                </div>
+                
+                <div className="mb-2">
+                  <input 
+                    className="form-control" 
+                    name="telefono"
+                    placeholder="Teléfono (máx. 12 caracteres)" 
+                    value={formData.telefono} 
+                    onChange={handleInputChange} 
+                  />
+                  <small className="text-muted">{formData.telefono.length}/{LIMITES.telefono} caracteres</small>
+                </div>
               </div>
               <div className="modal-footer">
                 <button className="btn btn-secondary" onClick={() => setShowModal(false)}>Cancelar</button>
