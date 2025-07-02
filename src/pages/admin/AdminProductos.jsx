@@ -219,6 +219,7 @@ export default function AdminProductos() {
                 </div>
                 
                 <div className="mb-3">
+                  <label htmlFor="precio">Precio:</label>
                   <input 
                     type="number" 
                     className="form-control" 
@@ -233,6 +234,7 @@ export default function AdminProductos() {
                 </div>
                 
                 <div className="mb-3">
+                  <label htmlFor="stock">Stock:</label>
                   <input 
                     type="number" 
                     className="form-control" 
@@ -246,6 +248,7 @@ export default function AdminProductos() {
                 </div>
                 
                 <div className="mb-3">
+                  <label htmlFor="empresaId">ID Producto:</label>
                   <input 
                     className="form-control" 
                     name="empresaId"

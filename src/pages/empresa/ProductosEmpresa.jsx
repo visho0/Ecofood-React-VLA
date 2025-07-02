@@ -71,7 +71,7 @@ export default function ProductosEmpresa() {
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
+      cancelButtonColor: '#1c1e',
       confirmButtonText: 'Sí, eliminarlo!'
     }).then(async (result) => {
       if (result.isConfirmed) {
@@ -200,6 +200,7 @@ export default function ProductosEmpresa() {
                   value={formData.descripcion}
                   onChange={handleChange}
                 ></textarea>
+                <label htmlFor="precio">Precio:</label>
                 <input
                   type="number"
                   className="form-control mb-2"
@@ -209,6 +210,7 @@ export default function ProductosEmpresa() {
                   onChange={handleChange}
                   required
                 />
+                <label htmlFor="stock">Stock:</label>
                 <input
                   type="number"
                   className="form-control mb-2"
@@ -219,6 +221,7 @@ export default function ProductosEmpresa() {
                   required
                 />
                 {/* Nuevos campos para vencimiento y cantidad */}
+                <label htmlFor="vencimiento">Fecha de Vencimiento</label>
                 <input
                   type="date"
                   className="form-control mb-2"
@@ -227,6 +230,7 @@ export default function ProductosEmpresa() {
                   value={formData.vencimiento}
                   onChange={handleChange}
                 />
+                <label htmlFor="cantidad">Cantidad a Pedir:</label>
                 <input
                   type="number"
                   className="form-control mb-2"
