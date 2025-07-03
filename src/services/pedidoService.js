@@ -1,7 +1,5 @@
-
-import { db } from './firebase'; 
-import { collection, getDocs, addDoc, query, where } from 'firebase/firestore';
-
+import { db } from './firebase';
+import { collection, getDocs, addDoc, query, where, doc, updateDoc } from 'firebase/firestore'; // Asegúrate de importar 'doc' y 'updateDoc'
 
 const productosCollection = collection(db, 'productos');
 const solicitudesCollection = collection(db, 'solicitudes');
@@ -33,10 +31,10 @@ export const crearSolicitud = async (solicitud) => {
 
 export const getSolicitudesPorCliente = async (clienteId) => {
   try {
-   
+
     const q = query(solicitudesCollection, where("clienteId", "==", clienteId));
     const querySnapshot = await getDocs(q);
-    
+
     const solicitudes = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
     return solicitudes;
   } catch (error) {
@@ -45,3 +43,26 @@ export const getSolicitudesPorCliente = async (clienteId) => {
   }
 };
 
+export const updateSolicitud = async (solicitudId, newData) => {
+  try {
+    const docRef = doc(db, "solicitudes", solicitudId);
+    await updateDoc(docRef, newData);
+    console.log("Solicitud actualizada con ID: ", solicitudId);
+  } catch (error) {
+    console.error("Error al actualizar la solicitud:", error);
+    throw error;
+  }
+};
+
+// NUEVA FUNCIÓN: Permite obtener solicitudes para una empresa específica
+export const getSolicitudesPorEmpresa = async (empresaId) => {
+  try {
+    const q = query(solicitudesCollection, where("empresaId", "==", empresaId));
+    const querySnapshot = await getDocs(q);
+    const solicitudes = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    return solicitudes;
+  } catch (error) {
+    console.error("Error al obtener solicitudes por empresa:", error);
+    return [];
+  }
+};

@@ -1,17 +1,19 @@
 import { Routes, Route } from "react-router-dom";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
-import Home from "../pages/Home";
+import Home from "../pages/Home"; // Si tienes una Home genérica
 import ProtectedRoute from "./ProtectedRoute";
 import RecuperarContraseña from "../pages/RecuperarContraseña";
 import ProtectedByRole from "./ProtectedByRole";
 
+// Componentes del Cliente
 import ClienteLayout from '../components/cliente/ClienteLayout';
 import HomeCliente from '../pages/cliente/HomeCliente';
 import MisPedidos from '../pages/cliente/MisPedidos';
 import VerProductos from '../pages/cliente/VerProductos';
 import EditarPerfil from '../pages/cliente/EditarPerfil';
 
+// Componentes del Administrador
 import AdminLayout from '../components/admin/layout/AdminLayout';
 import AdminDashboard from "../pages/admin/AdminDashboard";
 import AdminProductos from '../pages/admin/AdminProductos';
@@ -20,24 +22,20 @@ import AdminClientes from '../pages/admin/AdminClientes';
 import AdminEmpresas from '../pages/admin/AdminEmpresas';
 import AdminAdministradores from '../pages/admin/AdminAdministradores';
 
+// Componentes de la Empresa
 import EmpresaLayout from '../components/empresa/layout/EmpresaLayout';
 import PerfilEmpresa from '../pages/empresa/PerfilEmpresa';
 import ProductosEmpresa from '../pages/empresa/ProductosEmpresa';
+import SolicitudesEmpresa from '../pages/empresa/SolicitudesEmpresa'; // ¡NUEVA IMPORTACIÓN!
 
 export default function AppRouter() {
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
-      <Route path="/" element={<Login />} />
+      <Route path="/" element={<Login />} /> {/* O tu página de inicio si es diferente */}
       <Route path="/recuperar" element={<RecuperarContraseña />} />
-      <Route path="/registro" element={<Register />} />
 
-      <Route path="/home" element={
-        <ProtectedRoute>
-          <Home />
-        </ProtectedRoute>
-      }/>
-
+      {/* Rutas Protegidas para Cliente */}
       <Route path="/cliente" element={
         <ProtectedByRole allowed={["cliente"]}>
           <ClienteLayout />
@@ -50,6 +48,7 @@ export default function AppRouter() {
         <Route path="editar" element={<EditarPerfil />} />
       </Route>
 
+      {/* Rutas Protegidas para Administrador */}
       <Route path="/admin" element={
         <ProtectedByRole allowed={["admin"]}>
           <AdminLayout />
@@ -63,6 +62,7 @@ export default function AppRouter() {
         <Route index element={<AdminDashboard />} />
       </Route>
 
+      {/* Rutas Protegidas para Empresa */}
       <Route path="/empresa" element={
         <ProtectedByRole allowed={["empresa"]}>
           <EmpresaLayout />
@@ -71,9 +71,11 @@ export default function AppRouter() {
         <Route path="dashboard" element={<h2>Dashboard Empresa</h2>} />
         <Route path="perfil" element={<PerfilEmpresa />} />
         <Route path="productos" element={<ProductosEmpresa />} />
+        <Route path="solicitudes" element={<SolicitudesEmpresa />} /> {/* ¡NUEVA RUTA! */}
         <Route index element={<h2>Dashboard Empresa</h2>} />
       </Route>
 
+      {/* Ruta para cualquier otra URL no definida */}
       <Route path="*" element={<h2>404: Página no encontrada</h2>} />
     </Routes>
   );

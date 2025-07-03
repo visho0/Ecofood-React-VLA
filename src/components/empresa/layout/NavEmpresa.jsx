@@ -1,9 +1,9 @@
-import { Link } from 'react-router-dom';
-import CerrarSesion from '../../CerrarSesion'; 
-import { useAuth } from '../../../context/AuthContext'; 
+import { NavLink, Link } from 'react-router-dom'; // Asegúrate de importar NavLink
+import CerrarSesion from '../../CerrarSesion';
+import { useAuth } from '../../../context/AuthContext';
 
 export default function NavEmpresa() {
-  const { userData } = useAuth(); 
+  const { userData } = useAuth();
 
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -17,14 +17,25 @@ export default function NavEmpresa() {
         <div className="collapse navbar-collapse" id="navbarText">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <Link className="nav-link active" aria-current="page" to="/empresa/perfil">
-                Mi Perfil
-              </Link>
+              <NavLink className="nav-link" to="/empresa/dashboard">
+                Dashboard
+              </NavLink>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/empresa/productos">
+              <NavLink className="nav-link" to="/empresa/perfil">
+                Mi Perfil
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/empresa/productos">
                 Mis Productos
-              </Link>
+              </NavLink>
+            </li>
+            {/* ¡NUEVO ENLACE PARA SOLICITUDES! */}
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/empresa/solicitudes">
+                Mis Solicitudes
+              </NavLink>
             </li>
           </ul>
           <span className="navbar-text">
