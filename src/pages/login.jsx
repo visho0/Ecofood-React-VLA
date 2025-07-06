@@ -31,7 +31,7 @@ export default function Login() {
           } else if (datos.tipo === "cliente") {
             navigate("/cliente/dashboard");
           } else if (datos.tipo === "empresa") {
-            navigate("/empresa/perfil");
+            navigate("/empresa/perfil"); // Cambiado a /empresa/perfil según AppRouter.jsx
           } else {
             Swal.fire("Error", "Tipo de usuario no reconocido. Contacta al soporte.", "error");
           }
@@ -46,32 +46,52 @@ export default function Login() {
   };
 
   return (
-    <div className="container mt-5">
-      <h2>Iniciar Sesión</h2>
-      <form onSubmit={handleLogin}>
-        <div className="mb-3">
-          <label className="form-label">Correo Electrónico</label>
-          <input
-            type="email"
-            className="form-control"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
+    // Contenedor principal para centrar el formulario en la pantalla
+    <div className="container-fluid min-vh-100 d-flex align-items-center justify-content-center bg-light">
+      <div className="row justify-content-center w-100">
+        <div className="col-12 col-md-8 col-lg-6 col-xl-5"> {/* Columnas para controlar el ancho del formulario */}
+          <div className="card shadow-lg"> {/* Tarjeta con sombra */}
+            <div className="card-header text-center bg-primary text-white p-3">
+              <h2 className="mb-0">Iniciar Sesión</h2>
+            </div>
+            <div className="card-body p-4">
+              <form onSubmit={handleLogin}>
+                <div className="mb-3">
+                  <label htmlFor="emailInput" className="form-label">Correo Electrónico</label>
+                  <input
+                    type="email"
+                    className="form-control"
+                    id="emailInput"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="passwordInput" className="form-label">Contraseña</label>
+                  <input
+                    type="password"
+                    className="form-control"
+                    id="passwordInput"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className="d-grid gap-2"> {/* Botones apilados con un poco de espacio */}
+                    <button type="submit" className="btn btn-primary">Iniciar Sesión</button>
+                    <Link to="/recuperar-contrasena" className="btn btn-link">
+                      ¿Olvidaste tu contraseña?
+                    </Link>
+                </div>
+              </form>
+            </div>
+            <div className="card-footer text-center p-3">
+              <p className="mb-0">¿No tienes cuenta? <Link to="/register">Regístrate aquí</Link></p>
+            </div>
+          </div>
         </div>
-        <div className="mb-3">
-          <label className="form-label">Contraseña</label>
-          <input
-            type="password"
-            className="form-control"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <button type="submit" className="btn btn-primary me-2">Iniciar Sesión</button>
-        <Link to="/registro" className="btn btn-secondary">Registrarse</Link>
-      </form>
+      </div>
     </div>
   );
 }

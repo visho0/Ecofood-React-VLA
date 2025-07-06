@@ -2,9 +2,9 @@ import { Routes, Route } from "react-router-dom";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Home from "../pages/Home"; // Si tienes una Home genérica
-import ProtectedRoute from "./ProtectedRoute";
+import ProtectedRoute from "./ProtectedRoute"; // ¡RUTA CORREGIDA!
 import RecuperarContraseña from "../pages/RecuperarContraseña";
-import ProtectedByRole from "./ProtectedByRole";
+import ProtectedByRole from "./ProtectedByRole"; // ¡RUTA CORREGIDA!
 
 // Componentes del Cliente
 import ClienteLayout from '../components/cliente/ClienteLayout';
@@ -21,12 +21,13 @@ import AdminUsuarios from '../pages/admin/AdminUsuarios';
 import AdminClientes from '../pages/admin/AdminClientes';
 import AdminEmpresas from '../pages/admin/AdminEmpresas';
 import AdminAdministradores from '../pages/admin/AdminAdministradores';
+import AdminPerfil from '../pages/admin/AdminPerfil'; // ¡NUEVA IMPORTACIÓN!
 
 // Componentes de la Empresa
 import EmpresaLayout from '../components/empresa/layout/EmpresaLayout';
 import PerfilEmpresa from '../pages/empresa/PerfilEmpresa';
 import ProductosEmpresa from '../pages/empresa/ProductosEmpresa';
-import SolicitudesEmpresa from '../pages/empresa/SolicitudesEmpresa'; // ¡NUEVA IMPORTACIÓN!
+import SolicitudesEmpresa from '../pages/empresa/SolicitudesEmpresa'; // Asegúrate de que este componente exista si lo usas
 
 export default function AppRouter() {
   return (
@@ -59,6 +60,7 @@ export default function AppRouter() {
         <Route path="clientes" element={<AdminClientes />} />
         <Route path="empresas" element={<AdminEmpresas />} />
         <Route path="administradores" element={<AdminAdministradores />} />
+        <Route path="perfil" element={<AdminPerfil />} /> {/* ¡RUTA AÑADIDA! */}
         <Route index element={<AdminDashboard />} />
       </Route>
 
@@ -71,7 +73,7 @@ export default function AppRouter() {
         <Route path="dashboard" element={<h2>Dashboard Empresa</h2>} />
         <Route path="perfil" element={<PerfilEmpresa />} />
         <Route path="productos" element={<ProductosEmpresa />} />
-        <Route path="solicitudes" element={<SolicitudesEmpresa />} /> {/* ¡NUEVA RUTA! */}
+        <Route path="solicitudes" element={<SolicitudesEmpresa />} />
         <Route index element={<h2>Dashboard Empresa</h2>} />
       </Route>
 
