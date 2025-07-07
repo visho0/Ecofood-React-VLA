@@ -1,5 +1,5 @@
 import { BrowserRouter } from "react-router-dom";       // Necesario para el enrutamiento
-import AppRouter from "./router/AppRouter";             // Tu archivo de configuración de rutas
+import AppRouter from "./routes/AppRouter";             // Tu archivo de configuración de rutas
 import { AuthProvider } from "./context/AuthProvider";   // Tu contexto de autenticación
 import './App.css';                                     // Mantener tu archivo CSS principal si lo usas
 

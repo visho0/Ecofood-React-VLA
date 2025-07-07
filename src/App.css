@@ -1,8 +1,23 @@
 #root {
-  max-width: 1280px;
+  max-width: 1280px; /* Esto centra el contenedor #root horizontalmente */
   margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  /* ¡IMPORTANTE! Hemos eliminado el padding de #root para quitar el borde blanco */
+  /* padding: 2rem; */
+  /* text-align: center; */ /* Esta línea ha sido comentada/eliminada para quitar el centrado de texto global */
+}
+
+/* Para reducir o eliminar el padding vertical de la barra de navegación */
+.navbar {
+  padding-top: 0.5rem;    /* Ajusta este valor (ej. 0.5rem para un poco de padding, o 0 para eliminarlo) */
+  padding-bottom: 0.5rem; /* Ajusta este valor */
+  /* Si quieres eliminar todo el padding vertical de golpe y mantener el horizontal de 1rem: */
+  /* padding: 0 1rem !important; */
+}
+
+/* Opcional: Para ajustar el padding interno de la marca dentro de la navbar si el anterior no es suficiente */
+.navbar-brand {
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 .logo {

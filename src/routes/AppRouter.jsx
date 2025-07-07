@@ -33,6 +33,7 @@ export default function AppRouter() {
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
       <Route path="/" element={<Login />} /> {/* O tu página de inicio si es diferente */}
       <Route path="/recuperar" element={<RecuperarContraseña />} />
 

@@ -1,5 +1,12 @@
 @import 'bootstrap-icons/font/bootstrap-icons.css'; 
 
+/* ¡NUEVO! Asegura que no haya márgenes ni paddings por defecto en el HTML y BODY */
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* Evita desbordamiento horizontal en algunos casos */
+}
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -7,7 +14,7 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: #242424; /* El color de fondo principal de tu aplicación */
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -25,56 +32,13 @@ a:hover {
 }
 
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
+  /* Las siguientes dos líneas han sido eliminadas para quitar el centrado global */
+  /* display: flex; */
+  /* place-items: center; */
   min-width: 320px;
   min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-}
-
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  /* Asegúrate de que el body ocupe todo el espacio y su fondo sea el correcto */
+  background-color: #242424; /* Asegura el color de fondo para el body */
 }
 
 h1 {

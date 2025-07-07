@@ -1,11 +1,11 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext'; // Ajusta la ruta si es necesario
+import { NavLink, Link } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
+
 
 export default function Sidebar() {
-  const { userData } = useAuth(); // Obtener el tipo de usuario del contexto de autenticación
+  const { userData } = useAuth();
 
-  // Define las rutas para cada tipo de usuario
   const adminRoutes = [
     { path: '/admin/dashboard', name: 'Dashboard', icon: 'bi bi-grid-fill' },
     { path: '/admin/productos', name: 'Productos', icon: 'bi bi-box-seam-fill' },
@@ -39,12 +39,26 @@ export default function Sidebar() {
         routesToRender = companyRoutes;
         break;
       default:
-        routesToRender = []; // No hay rutas si el tipo no coincide
+        routesToRender = [];
     }
   }
 
+  const getProfileEditPath = () => {
+    if (!userData || !userData.tipo) return '/login';
+    switch (userData.tipo) {
+      case 'admin': return '/admin/perfil';
+      case 'cliente': return '/cliente/editar';
+      case 'empresa': return '/empresa/perfil';
+      default: return '/';
+    }
+  };
+
   return (
-    <nav className="d-flex flex-column p-3 text-white bg-dark" style={{ width: '250px', height: '100vh' }}>
+    <nav className="d-flex flex-column p-3 text-white bg-dark" style={{ width: '250px', height: '100vh', position: 'fixed', top: 0, left: 0, zIndex: 1000 }}>
+      {/* Añadimos "EcoFood" aquí en la parte superior del Sidebar */}
+      <h3 className="sidebar-brand text-center text-white fw-bold mb-4">EcoFood</h3>
+      <hr className="my-2"/>
+
       <ul className="nav nav-pills flex-column mb-auto">
         {routesToRender.map((route) => (
           <li className="nav-item" key={route.path}>
@@ -53,7 +67,6 @@ export default function Sidebar() {
               className={({ isActive }) =>
                 isActive ? 'nav-link text-white active' : 'nav-link text-white'
               }
-              end // Usar 'end' para que la clase 'active' solo se aplique si la ruta coincide exactamente
             >
               <i className={`${route.icon} me-2`}></i>
               {route.name}
@@ -61,6 +74,23 @@ export default function Sidebar() {
           </li>
         ))}
       </ul>
+
+      <hr className="my-3"/>
+
+      <div className="dropdown">
+        {userData && (
+          <Link
+            className="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+            id="dropdownUser"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+            to={getProfileEditPath()}
+          >
+            <i className="bi bi-person-circle me-2 fs-5"></i>
+            <strong>{userData.nombre}</strong>
+          </Link>
+        )}
+      </div>
     </nav>
   );
 }

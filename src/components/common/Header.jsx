@@ -2,74 +2,66 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import Swal from 'sweetalert2';
-import { auth } from '../../services/firebase'; // Asegúrate de que esta ruta sea correcta
+import { auth } from '../../services/firebase';
 import { signOut } from 'firebase/auth';
 
 
 export default function Header() {
-  const { userData, logout } = useAuth(); // Asumo que useAuth proporciona logout
+  const { userData, logout } = useAuth();
   const navigate = useNavigate();
 
-  // Función para acortar el nombre si es muy largo
-  const shortenName = (name, maxLength = 15) => {
+  const shortenName = (name, maxLength = 10) => {
     if (!name) return '';
     return name.length > maxLength ? `${name.substring(0, maxLength)}...` : name;
   };
 
   const handleLogout = async () => {
     try {
-      await signOut(auth); // Usamos signOut directamente aquí
+      await signOut(auth);
       Swal.fire("Sesión cerrada", "Has cerrado sesión correctamente", "success");
       navigate("/login");
-      // Opcional: Si tu AuthContext maneja el estado de logout internamente, podrías llamarlo:
-      // logout(); 
+      if (logout) logout();
     } catch (error) {
       console.error("Error al cerrar sesión:", error);
       Swal.fire("Error", "No se pudo cerrar la sesión", "error");
     }
   };
 
-  // Determinar la ruta de "Editar Perfil" según el rol
   const getProfileEditPath = () => {
-    if (!userData || !userData.tipo) return '/'; // Ruta por defecto o a login
+    if (!userData || !userData.tipo) return '/login';
     switch (userData.tipo) {
-      case 'admin':
-        return '/admin/perfil'; // Asumiendo que tendrás una ruta de perfil para admin
-      case 'cliente':
-        return '/cliente/editar';
-      case 'empresa':
-        return '/empresa/perfil';
-      default:
-        return '/';
+      case 'admin': return '/admin/perfil';
+      case 'cliente': return '/cliente/editar';
+      case 'empresa': return '/empresa/perfil';
+      default: return '/';
     }
   };
 
   return (
-    <header className="navbar navbar-expand-lg navbar-light bg-light sticky-top shadow-sm">
+    // Cambiamos 'navbar-dark bg-dark' por 'navbar-light bg-white'
+    <header className="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm" style={{ zIndex: 1020, paddingLeft: '265px' }}>
       <div className="container-fluid">
-        <Link className="navbar-brand d-flex align-items-center" to="/">
-          {/* Aquí puedes insertar tu logo de EcoFood */}
-          <img src="/path/to/your/ecofood-logo.png" alt="EcoFood Logo" style={{ height: '40px', marginRight: '10px' }} />
+        {/* Eliminamos el logo/nombre "EcoFood" de aquí */}
+        {/* <Link className="navbar-brand" to="/">
           <span className="fw-bold">EcoFood</span>
-        </Link>
+        </Link> */}
 
-        <div className="d-flex align-items-center">
+        <div className="d-flex align-items-center ms-auto"> {/* Añadimos ms-auto para mover los elementos a la derecha si no hay logo en el centro */}
           {userData && (
-            <span className="me-2 text-muted d-none d-md-block">
+            <span className="me-2 text-dark d-none d-md-block"> {/* Cambiado a text-dark */}
               Hola, {shortenName(userData.nombre)}
             </span>
           )}
           <div className="dropdown">
             <button
-              className="btn btn-outline-secondary rounded-circle d-flex align-items-center justify-content-center"
+              className="btn btn-outline-dark rounded-circle d-flex align-items-center justify-content-center" // Cambiado a btn-outline-dark
               type="button"
               id="dropdownMenuButton1"
               data-bs-toggle="dropdown"
               aria-expanded="false"
               style={{ width: '40px', height: '40px' }}
             >
-              {/* Icono de usuario simple (puedes usar un icono de librería como FontAwesome) */}
-              <i className="bi bi-person-fill fs-5"></i> {/* Ejemplo con Bootstrap Icons */}
+              <i className="bi bi-person-fill fs-5 text-dark"></i> {/* Cambiado a text-dark */}
             </button>
             <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
               <li>
