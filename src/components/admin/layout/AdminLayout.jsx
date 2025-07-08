@@ -1,16 +1,34 @@
+import { useState } from "react";
 import { Outlet } from "react-router-dom";
-import Header from "../../common/Header"; // Importa el nuevo Header
-import Sidebar from "../../common/Sidebar"; // Importa el nuevo Sidebar
-// import NavAdmin from "./NavAdmin"; // <--- ESTA LÍNEA SE PUEDE ELIMINAR O COMENTAR
+import Header from "../../common/Header";
+import Sidebar from "../../common/Sidebar";
 
 export default function AdminLayout() {
+  const [sidebarOpen, setSidebarOpen] = useState(true);
+
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
+  };
+
   return (
-    <div className="d-flex flex-column min-vh-100"> {/* Contenedor principal para toda la altura */}
-      <Header /> {/* Header en la parte superior */}
-      <div className="d-flex flex-grow-1"> {/* Contenedor para Sidebar y Contenido */}
-        <Sidebar /> {/* Sidebar a la izquierda */}
-        <main className="flex-grow-1 p-3"> {/* Contenido principal que ocupa el espacio restante */}
-          <Outlet /> {/* Aquí se renderizarán los componentes hijos de las rutas anidadas */}
+    <div className="d-flex flex-column min-vh-100">
+      {/* Header con la función toggle */}
+      <Header toggleSidebar={toggleSidebar} />
+      
+      <div className="d-flex flex-grow-1">
+        {/* Sidebar con estado isOpen */}
+        <Sidebar isOpen={sidebarOpen} />
+        
+        {/* Contenido principal con margen dinámico */}
+        <main 
+          className="flex-grow-1 p-4"
+          style={{
+            marginLeft: sidebarOpen ? '60px' : '80px',
+            transition: 'margin-left 0.3s ease',
+            overflow: 'auto'
+          }}
+        >
+          <Outlet />
         </main>
       </div>
     </div>

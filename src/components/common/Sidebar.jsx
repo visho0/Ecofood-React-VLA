@@ -54,7 +54,7 @@ export default function Sidebar() {
   };
 
   return (
-    <nav className="d-flex flex-column p-3 text-white bg-dark" style={{ width: '250px', height: '100vh', position: 'fixed', top: 0, left: 0, zIndex: 1000 }}>
+    <nav className="d-flex flex-column p-3 text-white bg-dark" style={{ width: '200px', height: '100vh', position: 'fixed', top: 0, left: 0, zIndex: 1000 }}>
       {/* Añadimos "EcoFood" aquí en la parte superior del Sidebar */}
       <h3 className="sidebar-brand text-center text-white fw-bold mb-4">EcoFood</h3>
       <hr className="my-2"/>
