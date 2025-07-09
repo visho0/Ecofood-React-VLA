@@ -72,10 +72,38 @@ export default function ProductosEmpresa() {
   };
 
   const handleSaveProducto = async (formData) => {
-    if (!user || !user.uid) {
-      Swal.fire("Error", "No hay usuario autenticado para guardar el producto.", "error");
-      return;
+    const handleSaveProducto = async (formData) => {
+  if (!user || !user.uid) {
+    Swal.fire("Error", "No hay usuario autenticado para guardar el producto.", "error");
+    return;
+  }
+
+  if (formData.nombre.length > 50) {
+    Swal.fire("Error", "El nombre no puede tener más de 50 caracteres.", "warning");
+    return;
+  }
+  if (formData.descripcion.length > 200) {
+    Swal.fire("Error", "La descripción no puede tener más de 200 caracteres.", "warning");
+    return;
+  }
+
+  try {
+    if (productoActivo) {
+      await updateProducto(productoActivo.id, formData);
+      Swal.fire("Actualizado", "Producto actualizado correctamente.", "success");
+    } else {
+      const nuevoProductoData = { ...formData, empresaId: user.uid };
+      await addProducto(nuevoProductoData);
+      Swal.fire("Añadido", "Producto añadido correctamente.", "success");
     }
+    setShowModal(false);
+    cargarProductos();
+  } catch (error) {
+    Swal.fire("Error", "No se pudo guardar el producto.", "error");
+    console.error("Error al guardar producto:", error);
+  }
+};
+
 
     try {
       if (productoActivo) {

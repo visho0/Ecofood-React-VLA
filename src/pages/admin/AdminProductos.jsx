@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { getProductos, addProducto, updateProducto, deleteProducto } from '../../services/productoService';
-import AdminProductoModal from '../../components/admin/AdminProductoModal'; // Importar el modal
-import Swal from 'sweetalert2'; // Asegúrate de tener SweetAlert2 instalado (npm install sweetalert2)
+import AdminProductoModal from '../../components/admin/AdminProductoModal'; 
+import Swal from 'sweetalert2'; 
 
 export default function AdminProductos() {
   const [productos, setProductos] = useState([]);
   const [showModal, setShowModal] = useState(false);
-  const [productoSeleccionado, setProductoSeleccionado] = useState(null); // Para editar
+  const [productoSeleccionado, setProductoSeleccionado] = useState(null); 
 
   useEffect(() => {
     cargarProductos();
@@ -37,23 +37,36 @@ export default function AdminProductos() {
     setProductoSeleccionado(null);
   };
 
-  const handleSaveProducto = async (productoData) => {
-    try {
-      if (productoSeleccionado) {
-        // Editar producto existente
-        await updateProducto(productoSeleccionado.id, productoData);
-        Swal.fire("¡Actualizado!", "Producto actualizado exitosamente.", "success");
-      } else {
-        // Añadir nuevo producto
-        await addProducto(productoData);
-        Swal.fire("¡Añadido!", "Producto añadido exitosamente.", "success");
-      }
-      cargarProductos(); // Recargar la lista de productos
-    } catch (error) {
-      console.error("Error al guardar producto:", error);
-      Swal.fire("Error", "No se pudo guardar el producto.", "error");
+ const handleSaveProducto = async (productoData) => {
+  // Validaciones de longitud de caracteres
+  if (productoData.nombre.length > 50) {
+    Swal.fire("Error", "El nombre no puede superar los 50 caracteres.", "warning");
+    return;
+  }
+  if (productoData.descripcion.length > 200) {
+    Swal.fire("Error", "La descripción no puede superar los 200 caracteres.", "warning");
+    return;
+  }
+  if (productoData.ubicacion.length > 100) {
+    Swal.fire("Error", "La ubicación no puede superar los 100 caracteres.", "warning");
+    return;
+  }
+
+  try {
+    if (productoSeleccionado) {
+      await updateProducto(productoSeleccionado.id, productoData);
+      Swal.fire("¡Actualizado!", "Producto actualizado exitosamente.", "success");
+    } else {
+      await addProducto(productoData);
+      Swal.fire("¡Añadido!", "Producto añadido exitosamente.", "success");
     }
-  };
+    cargarProductos();
+  } catch (error) {
+    console.error("Error al guardar producto:", error);
+    Swal.fire("Error", "No se pudo guardar el producto.", "error");
+  }
+};
+
 
   const handleDeleteProducto = async (id) => {
     Swal.fire({
